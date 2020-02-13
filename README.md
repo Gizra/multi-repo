@@ -1,31 +1,22 @@
+    mkdir -p web/sites/default/files/sync
+    cp -R config/sync ./web/sites/default/files/sync
     ddev composer install
     git checkout web/sites/default/default.settings.php
+    ddev restart
 
-Add to `sites/default/settings.php`
+## Todos
+
+
+    # sites/default/settings.php
 
     $config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
     $settings['file_private_path'] = '/var/www/private';
 
-Copy:
-
-    cp -R config/sync ./web/sites/default/files/sync
-
-And run:
-
-    ddev restart
-
-
-## Todos
-
-After composer install, revert changes?
 
     # sites/sites.php
 
     $sites['umami.ddev.site'] = 'umami';
     $sites['basic.ddev.site'] = 'basic';
-
-
-
 
     # sites/umami/settings.php
 
