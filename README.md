@@ -1,4 +1,5 @@
     ddev composer install
+    git checkout web/sites/default/default.settings.php
 
 Add to `sites/default/settings.php`
 
@@ -7,7 +8,7 @@ Add to `sites/default/settings.php`
 
 Copy:
 
-    cp -R config/sync ./web/sites/default/files
+    cp -R config/sync ./web/sites/default/files/sync
 
 And run:
 
