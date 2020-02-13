@@ -3,6 +3,8 @@ additional_hostnames:
   - umami
 hooks:
   post-start:
+    # Install the parent - Config repo.
+    - exec: drush @self.ddev site-install server -y --existing-config
     - exec: mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS basic; GRANT ALL ON basic.* to 'db'@'%';"
       service: db
     - exec: drush @basic.ddev site-install -y --sites-subdir=basic
