@@ -1,5 +1,14 @@
     cp -R config/sync ./web/sites/default/files
     ddev composer install
+
+Add to `sites/default/settings.php`
+
+    $config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
+    $settings['file_private_path'] = '/var/www/private';
+
+
+And run:
+
     ddev restart
 
 
@@ -13,10 +22,7 @@ After composer install, revert changes?
     $sites['basic.ddev.site'] = 'basic';
 
 
-    # sites/default/settings.php
 
-    $config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
-    $settings['file_private_path'] = '/var/www/private';
 
     # sites/umami/settings.php
 
