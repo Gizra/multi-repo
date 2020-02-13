@@ -757,4 +757,5 @@ $settings['entity_update_backup'] = TRUE;
 # }
 
 $config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
+$settings['config_sync_directory'] = '../config/sync';
 $settings['file_private_path'] = '/var/www/private';

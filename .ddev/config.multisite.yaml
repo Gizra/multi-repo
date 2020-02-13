@@ -12,5 +12,5 @@ hooks:
     - exec: drush @basic.ddev uli
     - exec: mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS umami; GRANT ALL ON umami.* to 'db'@'%';"
       service: db
-    - exec: drush @umami.ddev site-install server -y --existing-config --sites-subdir=umami
-    - exec: drush @umami.ddev uli
+#    - exec: drush @umami.ddev site-install server -y --existing-config --sites-subdir=umami
+#    - exec: drush @umami.ddev uli
