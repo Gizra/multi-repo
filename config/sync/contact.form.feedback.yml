@@ -1,4 +1,4 @@
-uuid: 7e430893-1d97-41fa-aaf8-c0e5c7452a39
+uuid: 8dab747f-c9bd-4373-a355-2294060fcea4
 langcode: en
 status: true
 dependencies: {  }
@@ -7,7 +7,7 @@ _core:
 id: feedback
 label: 'Website feedback'
 recipients:
-  - amitai@gizra.com
+  - admin@example.com
 reply: ''
 weight: 0
 message: 'Your message has been sent.'

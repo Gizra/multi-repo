@@ -1,6 +1,6 @@
-uuid: 88e494ec-3b60-4376-a88d-fb3bb4f88b34
-name: admin
-mail: amitai@gizra.com
+uuid: 4429d8fb-9595-4bc6-abbf-835b94270cdb
+name: 'Drush Site-Install'
+mail: admin@example.com
 slogan: ''
 page:
   403: ''
