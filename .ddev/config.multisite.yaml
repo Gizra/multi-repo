@@ -5,9 +5,12 @@ hooks:
   post-start:
     # Install the parent - Config repo.
     - exec: drush @self.ddev site-install server -y --existing-config
+    - exec: drush @self.ddev uli
     - exec: mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS basic; GRANT ALL ON basic.* to 'db'@'%';"
       service: db
     - exec: drush @basic.ddev site-install -y --sites-subdir=basic
+    - exec: drush @basic.ddev uli
     - exec: mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS umami; GRANT ALL ON umami.* to 'db'@'%';"
       service: db
-    - exec: drush @basic.ddev site-install demo_umami -y --sites-subdir=umami
+    - exec: drush @umami.ddev site-install demo_umami -y --sites-subdir=umami
+    - exec: drush @umami.ddev uli
