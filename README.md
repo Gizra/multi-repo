@@ -1,5 +1,5 @@
     mkdir -p web/sites/default/files/sync
-    cp -R config/sync ./web/sites/default/files/sync
+    cp -R config/sync ./web/sites/default/files
     ddev composer install
     git checkout web/sites/default/default.settings.php
     ddev restart
