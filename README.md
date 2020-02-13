@@ -1,4 +1,3 @@
-    cp -R config/sync ./web/sites/default/files
     ddev composer install
 
 Add to `sites/default/settings.php`
@@ -6,6 +5,9 @@ Add to `sites/default/settings.php`
     $config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
     $settings['file_private_path'] = '/var/www/private';
 
+Copy:
+
+    cp -R config/sync ./web/sites/default/files
 
 And run:
 
