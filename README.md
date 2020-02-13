@@ -5,7 +5,7 @@
 
 ## Todos
 
-* [] After composer install, revert changes?
+After composer install, revert changes?
 
     # sites/sites.php
 
