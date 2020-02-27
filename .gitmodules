@@ -1,0 +1,3 @@
+[submodule "web/sites/basic"]
+	path = web/sites/basic
+	url = git@github.com:amitaibu/multi-repo-basic.git
