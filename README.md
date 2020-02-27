@@ -9,3 +9,8 @@
     ddev restart
 
 Notice that in the end of the `ddev restart` we get a one time admin link to login.
+
+## Sites and Git Submodules
+
+https://github.com/amitaibu/multi-repo-basic
+
