@@ -6,7 +6,8 @@ id: basic
 label: Basic
 description: ''
 folder: ../config/basic
-module: {  }
+module:
+  devel: 0
 theme: {  }
 blacklist: {  }
 graylist:
