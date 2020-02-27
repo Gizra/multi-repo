@@ -20,7 +20,3 @@ Notice that in the end of the `ddev restart` we get a one time admin link to log
 1. https://multi-repo.ddev.site/ -- The default site, the one that holds all the "default" config
 1. https://basic.ddev.site/ -- A single site, fetched by git-submodule, with config overrides done by config split. It's hosted in https://github.com/amitaibu/multi-repo-basic
 
-## Sites and Git Submodules
-
-https://github.com/amitaibu/multi-repo-basic
-
