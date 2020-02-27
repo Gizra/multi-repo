@@ -1,0 +1,16 @@
+uuid: 013ac69c-442a-40fb-a81c-6fac4b8bb85d
+langcode: en
+status: false
+dependencies: {  }
+id: basic
+label: Basic
+description: ''
+folder: ../config/basic
+module: {  }
+theme: {  }
+blacklist: {  }
+graylist:
+  - system.site
+graylist_dependents: false
+graylist_skip_equal: true
+weight: 0

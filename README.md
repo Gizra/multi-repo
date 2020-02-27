@@ -1,11 +1,22 @@
+## Requirements
+
+* [DDEV](https://ddev.readthedocs.io/en/stable/)
+
+## Installation
+
+    ddev composer install
+    cp .ddev/config.local.yaml.example .ddev/config.local.yaml
+    ddev restart
+
+Notice that in the end of the `ddev restart` we get a one time admin link to login.
+
+## Todos
+
     mkdir -p web/sites/default/files/sync
     cp -R config/sync ./web/sites/default/files
     ddev composer install
     git checkout web/sites/default/default.settings.php
     ddev restart
-
-## Todos
-
 
     # sites/default/settings.php
 
