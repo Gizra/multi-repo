@@ -50,6 +50,8 @@ class RoboFile extends \Robo\Tasks
         $task->exec("git rm $path");
       }
 
+      $task->run();
+
       // Get new subsites from file.
       $subSites = [];
       if (($handle = fopen($filename, 'r')) !== FALSE) {
