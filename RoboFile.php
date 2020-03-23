@@ -48,6 +48,7 @@ class RoboFile extends \Robo\Tasks
         // https://gist.github.com/myusuf3/7f645819ded92bda6677#gistcomment-2650640
         $task->exec("git submodule deinit $path");
         $task->exec("git rm $path");
+        $task->exec("rm -rf .git/modules/$path");
       }
 
       $task->run();
