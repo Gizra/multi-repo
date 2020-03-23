@@ -7,15 +7,37 @@
  */
 class RoboFile extends \Robo\Tasks
 {
+
+    const GITMODULES_REGEX = '/\[submodule "web\/sites\/(.*)"\]/';
+
     public function fetch(string $filename)
     {
       $this->say("Hello, $filename");
 
       // Remove directories if they are clean.
+      $gitmodules = file_get_contents('.gitmodules');
+      preg_match_all(self::GITMODULES_REGEX, $gitmodules, $matches);
 
-      // Remove symlinks.
+      if (empty($matches[1])) {
+        $this->say('No directories found in .gitmodules');
+        return;
+      }
+
+      $directoryNames = $matches[1];
+
+      $task = $this
+        ->taskExecStack()
+        ->stopOnFail();
+
+      // Delete symlinks.
+      foreach ($directoryNames as $directoryName) {
+          $task->exec('rm config/'.$directoryName);
+      }
+
+      $task->run();
 
       // Copy new .gitmodules
+      $this->_copy($filename,'.gitmodules');
 
       // Clone
 
