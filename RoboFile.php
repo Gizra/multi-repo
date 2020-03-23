@@ -67,15 +67,29 @@ class RoboFile extends \Robo\Tasks
         ->taskExecStack()
         ->stopOnFail();
 
-      // Delete symlinks.
       foreach ($subSites as $row) {
         list($name, $git) = $row;
-        $task->exec("git submodule add $git web/sites/$name");
+        $path = "web/sites/$name";
+        $task->exec("git submodule add $git $path");
       }
 
       $task->run();
 
-      // Create symlinks
+      foreach ($subSites as $row) {
+        list($name, $git) = $row;
+        $path = "web/sites/$name";
+
+        // Create symlink.
+        $this->_symlink($path, "config/$name");
+
+        // Copy an adapted `settings.php`
+        $this->_copy('robo/settings.php', $path, true);
+
+        $this->taskReplaceInFile("$path/settings.php")
+          ->from('{{ name }}')
+          ->to($name)
+          ->run();
+      }
 
       // Adapt DDEV config
 
