@@ -54,7 +54,9 @@ class RoboFile extends \Robo\Tasks
         fclose($handle);
       }
 
-           // Add sub-modules
+      // @todo: Remove sub-modules.
+
+      // Add sub-modules
       $task = $this
         ->taskExecStack()
         ->stopOnFail();
