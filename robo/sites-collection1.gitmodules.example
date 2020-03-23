@@ -1,6 +1,0 @@
-[submodule "web/sites/basic"]
-	path = web/sites/basic
-	url = git@github.com:Gizra/multi-repo-basic.git
-[submodule "web/sites/foo"]
-	path = web/sites/foo
-	url = git@github.com:Gizra/multi-repo-basic.git
