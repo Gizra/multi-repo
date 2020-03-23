@@ -14,7 +14,16 @@ class RoboFile extends \Robo\Tasks
     {
       $this->say("Hello, $filename");
 
-      // Remove directories if they are clean.
+      $result = $this
+        ->taskExec('git status -s')
+        ->printOutput(FALSE)
+        ->run();
+
+      if ($result->getMessage()) {
+        throw new \Exception('The working directory is dirty. Please commit any pending changes.');
+      }
+
+      // Remove directories.
       $gitmodules = file_get_contents('.gitmodules');
       preg_match_all(self::GITMODULES_REGEX, $gitmodules, $matches);
 
@@ -36,11 +45,27 @@ class RoboFile extends \Robo\Tasks
 
       $task->run();
 
-      // Copy new .gitmodules
-      $this->_exec("cp $filename .gitmodules");
+      // Get new subsites from file.
+      $subSites = [];
+      if (($handle = fopen($filename, 'r')) !== FALSE) {
+        while (($data = fgetcsv($handle)) !== FALSE) {
+          $subSites[] = $data;
+        }
+        fclose($handle);
+      }
 
-      // Clone sub-modules
-      $this->_exec('git submodule update --init --recursive');
+           // Add sub-modules
+      $task = $this
+        ->taskExecStack()
+        ->stopOnFail();
+
+      // Delete symlinks.
+      foreach ($subSites as $row) {
+        list($name, $git) = $row;
+        $task->exec("git submodule add $git web/sites/$name");
+      }
+
+      $task->run();
 
       // Create symlinks
 
