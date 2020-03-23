@@ -37,9 +37,10 @@ class RoboFile extends \Robo\Tasks
       $task->run();
 
       // Copy new .gitmodules
-      $this->_copy($filename,'.gitmodules');
+      $this->_exec("cp $filename .gitmodules");
 
-      // Clone
+      // Clone sub-modules
+      $this->_exec('git submodule update --init --recursive');
 
       // Create symlinks
 
