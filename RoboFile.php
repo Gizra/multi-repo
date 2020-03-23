@@ -40,13 +40,14 @@ class RoboFile extends \Robo\Tasks
 
       // Delete symlinks.
       foreach ($directoryNames as $directoryName) {
-          $task->exec('rm config/'.$directoryName);
+        $task->exec('rm config/'.$directoryName);
 
-          $path = 'web/sites/'.$directoryName;
+        $path = 'web/sites/'.$directoryName;
 
-          // Remove submodule
-          $task->exec("git submodule deinit $path");
-          $task->exec("git rm $path");
+        // Remove sub-modules.
+        // https://gist.github.com/myusuf3/7f645819ded92bda6677#gistcomment-2650640
+        $task->exec("git submodule deinit $path");
+        $task->exec("git rm $path");
       }
 
       // Get new subsites from file.
@@ -57,11 +58,6 @@ class RoboFile extends \Robo\Tasks
         }
         fclose($handle);
       }
-
-      // Remove sub-modules.
-      // https://gist.github.com/myusuf3/7f645819ded92bda6677#gistcomment-2650640
-
-
 
       // Add sub-modules
       $task = $this
