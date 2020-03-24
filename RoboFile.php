@@ -115,7 +115,7 @@ class RoboFile extends \Robo\Tasks
     foreach ($subSites as $row) {
       list($name,,) = $row;
 
-      $ddevConfig['hooks']['post-start'][] = [
+      $newRows = [
         [
           'exec' => "mysql -uroot -proot -e \"CREATE DATABASE IF NOT EXISTS $name; GRANT ALL ON basic.* to 'db'@'%';\"",
           'service' => 'db',
@@ -132,6 +132,8 @@ class RoboFile extends \Robo\Tasks
           'auto-generated' => true,
         ],
       ];
+
+      $ddevConfig['hooks']['post-start'] = array_merge($ddevConfig['hooks']['post-start'], $newRows);
     }
 
     $yaml = Yaml::dump($ddevConfig);
