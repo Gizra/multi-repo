@@ -70,6 +70,10 @@ class RoboFile extends \Robo\Tasks
         $branch = $branch ?: 'master';
 
         $path = "web/sites/$name";
+        // Cleanup folder if in case we already have an older version.
+        $task->exec("rm -rf $path");
+
+        // Add submodule.
         $task->exec("git submodule add -b $branch $git $path");
       }
 
