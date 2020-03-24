@@ -20,3 +20,11 @@ Notice that in the end of the `ddev restart` we get a one time admin link to log
 1. https://multi-repo.ddev.site/ -- The default site, the one that holds all the "default" config
 1. https://basic.ddev.site/ -- A single site, fetched by git-submodule, with config overrides done by config split. It's hosted in https://github.com/Gizra/multi-repo-basic
 
+
+### Troubleshooting
+
+If you had a previous installation of this repo, and have an error similar to `composer [install] failed, composer command failed: failed to load any docker-compose.*y*l files in /home/amitaibu/Sites/multi-repo/.ddev: err=<nil>. stderr=`
+
+then execute the following, and re-try installation steps.
+
+    ddev rm --unlist
