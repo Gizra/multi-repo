@@ -87,7 +87,7 @@ class RoboFile extends \Robo\Tasks
       $this->_symlink($path, "config/$name");
 
       // Copy an adapted `settings.php`
-      $this->_copy('robo/settings.php', $path, true);
+      $this->_copy('robo/settings.php', $path.'/settings.php', true);
 
       $this->taskReplaceInFile("$path/settings.php")
         ->from('{{ name }}')
