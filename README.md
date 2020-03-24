@@ -23,7 +23,7 @@ Notice that in the end of the `ddev restart` we get a one time admin link to log
 
 ### Troubleshooting
 
-If you had a previous installation of this repo, and have an error similar to `composer [install] failed, composer command failed: failed to load any docker-compose.*y*l files in /home/amitaibu/Sites/multi-repo/.ddev: err=<nil>. stderr=`
+If you had a previous installation of this repo, and have an error similar to `composer [install] failed, composer command failed: failed to load any docker-compose.*y*l files in /XXX/multi-repo/.ddev: err=<nil>. stderr=`
 
 then execute the following, and re-try installation steps.
 
