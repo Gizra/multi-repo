@@ -28,8 +28,7 @@ class RoboFile extends \Robo\Tasks
       preg_match_all(self::GITMODULES_REGEX, $gitmodules, $matches);
 
       if (empty($matches[1])) {
-        $this->say('No directories found in .gitmodules');
-        return;
+        throw new Exception('No directories found in .gitmodules');
       }
 
       $directoryNames = $matches[1];
@@ -66,9 +65,12 @@ class RoboFile extends \Robo\Tasks
         ->stopOnFail();
 
       foreach ($subSites as $row) {
-        list($name, $git) = $row;
+        list($name, $git, $branch) = $row;
+
+        $branch = $branch ?: 'master';
+
         $path = "web/sites/$name";
-        $task->exec("git submodule add $git $path");
+        $task->exec("git submodule add -b $branch $git $path");
       }
 
       $task->run();
