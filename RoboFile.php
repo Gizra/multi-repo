@@ -145,4 +145,18 @@ class RoboFile extends \Robo\Tasks
     $this->_exec('ddev restart');
 
   }
+
+  /**
+   * Reset directory and git after running the `fetch` command.
+   */
+  public function reset() {
+    $this
+      ->taskExecStack()
+      ->stopOnFail()
+      ->exec('git reset --hard HEAD')
+      ->exec('git clean -fd')
+      ->exec('git submodule update --init --recursive --force')
+      ->exec('git status')
+      ->run();
+  }
 }
