@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * This is project's console commands configuration for Robo task runner.
  *
@@ -79,8 +81,13 @@ class RoboFile extends \Robo\Tasks
 
     $task->run();
 
+    // Adapt DDEV config
+    $ddevFilename = '.ddev/config.local.yaml.example';
+    $ddevConfig = Yaml::parseFile($ddevFilename);
+    $ddevConfig['additional_hostnames'] = [];
+
     foreach ($subSites as $row) {
-      list($name, $git) = $row;
+      list($name,,) = $row;
       $path = "web/sites/$name";
 
       // Create symlink.
@@ -93,9 +100,12 @@ class RoboFile extends \Robo\Tasks
         ->from('{{ name }}')
         ->to($name)
         ->run();
+
+      $ddevConfig['additional_hostnames'][] = $name;
     }
 
-    // Adapt DDEV config
+    $yaml = Yaml::dump($ddevConfig);
+    file_put_contents($ddevFilename, $yaml);
 
     // Restart DDEV.
 
