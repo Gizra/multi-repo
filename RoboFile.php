@@ -104,6 +104,36 @@ class RoboFile extends \Robo\Tasks
       $ddevConfig['additional_hostnames'][] = $name;
     }
 
+    // Remove previous DDEV `post-start` commands.
+    foreach ($ddevConfig['hooks']['post-start'] as $index => $row) {
+      if (!empty($row['auto-generated'])) {
+        unset($ddevConfig['hooks']['post-start'][$index]);
+      }
+    }
+
+    // Add new DDEV `post-start` commands.
+    foreach ($subSites as $row) {
+      list($name,,) = $row;
+
+      $ddevConfig['hooks']['post-start'][] = [
+        [
+          'exec' => "mysql -uroot -proot -e \"CREATE DATABASE IF NOT EXISTS $name; GRANT ALL ON basic.* to 'db'@'%';\"",
+          'service' => 'db',
+          'auto-generated' => true,
+        ],
+
+        [
+          'exec' => "drush @$name.ddev site-install server -y --existing-config --sites-subdir=$name",
+          'auto-generated' => true,
+        ],
+
+        [
+          'exec' => "drush @$name.ddev uli",
+          'auto-generated' => true,
+        ],
+      ];
+    }
+
     $yaml = Yaml::dump($ddevConfig);
     file_put_contents($ddevFilename, $yaml);
 
