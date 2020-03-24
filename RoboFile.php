@@ -41,17 +41,25 @@ class RoboFile extends \Robo\Tasks
       // Delete symlinks.
       foreach ($directoryNames as $directoryName) {
         $task->exec('rm config/'.$directoryName);
-
-        $path = 'web/sites/'.$directoryName;
-
-        // Remove sub-modules.
-        // https://gist.github.com/myusuf3/7f645819ded92bda6677#gistcomment-2650640
-        $task->exec("git submodule deinit $path");
-        $task->exec("git rm $path");
-        $task->exec("rm -rf .git/modules/$path");
       }
 
       $task->run();
+
+      // Remove all submodules.
+      // https://stackoverflow.com/a/34914461/750039
+      $task = $this
+        ->taskExecStack()
+        ->stopOnFail()
+        // deinit all submodules from .gitmodules
+        ->exec('git submodule deinit .')
+        // Remove all submodules (`git rm`) from .gitmodules
+        ->exec('git submodule | cut -c43- | while read -r line; do (git rm "$line"); done')
+        // delete all submodule sections from .git/config (`git config --local --remove-section`) by fetching those from .git/config
+        ->exec('git config --local -l | grep submodule | sed -e \'s/^\(submodule\.[^.]*\)\(.*\)/\1/g\' | while read -r line; do (git config --local --remove-section "$line"); done')
+        // Manually remove leftovers
+        ->exec('rm .gitmodules')
+        ->exec('rm -rf .git/modules')
+        ->run();
 
       // Get new subsites from file.
       $subSites = [];
