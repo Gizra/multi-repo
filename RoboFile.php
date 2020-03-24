@@ -14,8 +14,6 @@ class RoboFile extends \Robo\Tasks
 
   public function fetch(string $filename)
   {
-    $this->say("Hello, $filename");
-
     $result = $this
       ->taskExec('git status -s')
       ->printOutput(FALSE)
