@@ -107,7 +107,10 @@ class RoboFile extends \Robo\Tasks
     $yaml = Yaml::dump($ddevConfig);
     file_put_contents($ddevFilename, $yaml);
 
+    $this->_copy($ddevFilename, '.ddev/config.local.yaml', true);
+
     // Restart DDEV.
+    $this->_exec('ddev restart');
 
   }
 }
