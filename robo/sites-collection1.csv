@@ -1,2 +1,2 @@
-basic,git@github.com:Gizra/multi-repo-basic.git,master
-foo,git@github.com:Gizra/multi-repo-basic.git,master
+basic,git@github.com:Gizra/multi-repo-basic.git,remove-settings
+foo,git@github.com:Gizra/multi-repo-basic.git,remove-settings
