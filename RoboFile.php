@@ -43,7 +43,7 @@ class RoboFile extends \Robo\Tasks
 
         $path = "web/sites/$directoryName";
 
-        $task->exec("git submodule deinit -- $path");
+        $task->exec("git submodule deinit -f -- $path");
         $task->exec("rm -rf .git/modules/$path");
         $task->exec("git rm $path");
       }
