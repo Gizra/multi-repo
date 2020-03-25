@@ -150,10 +150,6 @@ class RoboFile extends \Robo\Tasks
     file_put_contents($ddevFilename, $yaml);
 
     $this->_copy($ddevFilename, '.ddev/config.local.yaml', true);
-
-    // Restart DDEV.
-    $this->_exec('ddev restart');
-
   }
 
   /**
