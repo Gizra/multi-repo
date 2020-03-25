@@ -4,3 +4,5 @@ web/themes/contrib/
 vendor/
 web/sites/*
 !web/sites/default
+config/*
+!config/sync
