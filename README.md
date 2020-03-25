@@ -11,7 +11,7 @@
     ddev restart
 
     # Allow git inside the container to work, with your hosts's credentials.
-    # ddev auth ssh
+    ddev auth ssh
 
     # Fetch subsites
     ddev exec "cd .. && ./vendor/bin/robo fetch ./robo/sites-collection1.csv" && ddev restart
