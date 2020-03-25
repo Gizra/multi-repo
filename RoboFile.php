@@ -21,7 +21,7 @@ class RoboFile extends \Robo\Tasks
       ->run();
 
     if ($result->getMessage()) {
-      // throw new Exception('The working directory is dirty. Please commit any pending changes.');
+      throw new Exception('The working directory is dirty. Please commit any pending changes.');
     }
 
     // Remove directories under web/sites.
@@ -64,34 +64,6 @@ class RoboFile extends \Robo\Tasks
       $task->run();
     }
 
-    return;
-
-    $gitmodules = file_get_contents('.gitmodules');
-    preg_match_all(self::GITMODULES_REGEX, $gitmodules, $matches);
-
-    if (empty($matches[1])) {
-      throw new Exception('No directories found in .gitmodules');
-    }
-
-    $directoryNames = $matches[1];
-
-    $task = $this
-      ->taskExecStack()
-      ->stopOnFail();
-
-    // Delete symlinks.
-    foreach ($directoryNames as $directoryName) {
-      $task->exec('rm config/'.$directoryName);
-
-      $path = "web/sites/$directoryName";
-
-      $task->exec("git submodule deinit -f -- $path");
-      $task->exec("rm -rf .git/modules/$path");
-      $task->exec("git rm $path");
-    }
-
-    $task->run();
-
     // Get new subsites from file.
     $subSites = [];
     if (($handle = fopen($filename, 'r')) !== FALSE) {
@@ -112,11 +84,9 @@ class RoboFile extends \Robo\Tasks
       $branch = $branch ?: 'master';
 
       $path = "web/sites/$name";
-      // Cleanup folder if in case we already have an older version.
-      $task->exec("rm -rf $path");
 
-      // Add submodule.
-      $task->exec("git submodule add --force -b $branch $git $path");
+      // Clone sub-site.
+      $task->exec("git clone --branch $branch $git $path");
     }
 
     $task->run();
