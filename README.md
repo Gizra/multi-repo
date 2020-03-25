@@ -8,12 +8,28 @@
     cd multi-repo
     ddev composer install
     cp .ddev/config.local.yaml.example .ddev/config.local.yaml
+    # Allow git inside the container to work, with your hosts's credentials.
+    ddev auth ssh
+    # Fetch subsites
+    ddev exec "cd .. && ./vendor/bin/robo fetch ./robo/sites-collection1.csv"
     ddev restart
 
 Every time you want to re-install:
 
     ddev restart
 
+To re-fetch subsites
+
+    ddev exec "cd .. && ./vendor/bin/robo fetch ./robo/sites-collection1.csv" && ddev restart
+
+Note it is possibly to execute this also from the host, with
+
+    ./vendor/bin/robo fetch ./robo/sites-collection1.csv && ddev restart
+
+
+To clean the working directory after a re-fetch
+
+    ddev exec "cd .. && ./vendor/bin/robo reset"
 
 Notice that in the end of the `ddev restart` we get a one time admin link to login, to two sites:
 
