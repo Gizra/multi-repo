@@ -16,6 +16,8 @@
     # Fetch subsites
     ddev exec "cd .. && ./vendor/bin/robo fetch ./robo/sites-collection1.csv" && ddev restart
 
+
+
 Every time you want to re-install:
 
     ddev restart
@@ -23,6 +25,11 @@ Every time you want to re-install:
 To re-fetch subsites
 
     ddev exec "cd .. && ./vendor/bin/robo fetch ./robo/sites-collection1.csv" && ddev restart
+
+Note it is possibly to execute this also from the host, with
+
+    ./vendor/bin/robo fetch ./robo/sites-collection1.csv && ddev restart
+
 
 To clean the working directory after a re-fetch
 
