@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -20,10 +21,51 @@ class RoboFile extends \Robo\Tasks
       ->run();
 
     if ($result->getMessage()) {
-      throw new Exception('The working directory is dirty. Please commit any pending changes.');
+      // throw new Exception('The working directory is dirty. Please commit any pending changes.');
     }
 
-    // Remove directories.
+    // Remove directories under web/sites.
+    $finder = new Finder();
+    $finder
+      ->directories()
+      ->in('web/sites')
+      ->exclude('default');
+
+    if ($finder->hasResults()) {
+      $task = $this
+        ->taskExecStack()
+        ->stopOnFail();
+
+      foreach ($finder as $fileInfo) {
+        $name = $fileInfo->getFilename();
+        $task->exec("rm -rf web/sites/$name");
+      }
+
+      $task->run();
+    }
+
+    // Remove symlinks under config.
+    $finder = new Finder();
+    $finder
+      ->files()
+      ->in('config')
+      ->exclude('sync');
+
+    if ($finder->hasResults()) {
+      $task = $this
+        ->taskExecStack()
+        ->stopOnFail();
+
+      foreach ($finder as $fileInfo) {
+        $name = $fileInfo->getFilename();
+        $task->exec("rm config/$name");
+      }
+
+      $task->run();
+    }
+
+    return;
+
     $gitmodules = file_get_contents('.gitmodules');
     preg_match_all(self::GITMODULES_REGEX, $gitmodules, $matches);
 
@@ -152,8 +194,6 @@ class RoboFile extends \Robo\Tasks
       ->taskExecStack()
       ->stopOnFail()
       ->exec('git reset --hard HEAD')
-      ->exec('git clean -fd')
-      ->exec('git submodule update --init --recursive --force')
       ->exec('git status')
       ->run();
   }
