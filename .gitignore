@@ -2,3 +2,5 @@
 web/modules/contrib/
 web/themes/contrib/
 vendor/
+web/sites/*
+!web/sites/default
