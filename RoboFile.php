@@ -104,7 +104,7 @@ class RoboFile extends \Robo\Tasks
 
       // Create symlink. We have `../path`, as the symlink needs a relative
       // path.
-      $this->_symlink("../$path", "config/$name");
+      $this->_symlink("../$path/config/$name", "config/$name");
 
       // Copy an adapted `settings.php`
       $this->_copy('robo/settings.php', $path.'/settings.php', true);
