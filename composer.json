@@ -23,6 +23,7 @@
         "drush/drush": "^10.2"
     },
     "require-dev": {
+        "consolidation/robo": "^1.0.0"
     },
     "conflict": {
         "drupal/drupal": "*"
