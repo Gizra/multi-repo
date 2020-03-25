@@ -11,8 +11,6 @@ use Symfony\Component\Yaml\Yaml;
 class RoboFile extends \Robo\Tasks
 {
 
-  const GITMODULES_REGEX = '/\[submodule "web\/sites\/(.*)"\]/';
-
   public function fetch(string $filename)
   {
     $result = $this
