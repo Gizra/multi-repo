@@ -86,7 +86,7 @@ class RoboFile extends \Robo\Tasks
       $path = "web/sites/$name";
 
       // Clone sub-site.
-      $task->exec("git clone --branch $branch $git $path");
+      $task->exec("git clone $git $path --branch=$branch");
     }
 
     $task->run();
@@ -164,6 +164,7 @@ class RoboFile extends \Robo\Tasks
       ->taskExecStack()
       ->stopOnFail()
       ->exec('git reset --hard HEAD')
+      ->exec('git clean -fd')
       ->exec('git status')
       ->run();
   }
