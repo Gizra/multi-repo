@@ -71,7 +71,7 @@ class RoboFile extends \Robo\Tasks
     $finder
       ->files()
       ->in('drush/sites')
-      ->exclude('self.site.yml')
+      ->notName('self.site.yml')
       // Don't search sub-directories.
       ->depth('== 0');
 
