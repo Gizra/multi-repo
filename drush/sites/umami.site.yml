@@ -1,3 +1,0 @@
-ddev:
-  root: /var/www/html/web/sites/umami
-  uri: https://umami.ddev.site:4443

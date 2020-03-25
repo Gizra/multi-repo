@@ -66,6 +66,28 @@ class RoboFile extends \Robo\Tasks
       $task->run();
     }
 
+    // Remove Drush aliases.
+    $finder = new Finder();
+    $finder
+      ->files()
+      ->in('drush/sites')
+      ->notName('self.site.yml')
+      // Don't search sub-directories.
+      ->depth('== 0');
+
+    if ($finder->hasResults()) {
+      $task = $this
+        ->taskExecStack()
+        ->stopOnFail();
+
+      foreach ($finder as $fileInfo) {
+        $name = $fileInfo->getFilename();
+        $task->exec("rm drush/sites/$name");
+      }
+
+      $task->run();
+    }
+
     // Get new subsites from file.
     $subSites = [];
     if (($handle = fopen($filename, 'r')) !== FALSE) {
@@ -104,12 +126,21 @@ class RoboFile extends \Robo\Tasks
 
       // Create symlink. We have `../path`, as the symlink needs a relative
       // path.
-      $this->_symlink("../$path", "config/$name");
+      $this->_symlink("../$path/config/$name", "config/$name");
 
       // Copy an adapted `settings.php`
       $this->_copy('robo/settings.php', $path.'/settings.php', true);
 
       $this->taskReplaceInFile("$path/settings.php")
+        ->from('{{ name }}')
+        ->to($name)
+        ->run();
+
+      // Copy an adapted Drush alias.
+      $drushAliasFilename = "drush/sites/$name.site.yml";
+      $this->_copy('robo/drush.site.yml', "drush/sites/$name.site.yml", true);
+
+      $this->taskReplaceInFile($drushAliasFilename)
         ->from('{{ name }}')
         ->to($name)
         ->run();
