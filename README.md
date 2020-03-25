@@ -10,6 +10,12 @@
     cp .ddev/config.local.yaml.example .ddev/config.local.yaml
     ddev restart
 
+    # Allow git inside the container to work, with your hosts's credentials.
+    # ddev auth ssh
+
+    # Fetch subsites
+    ddev exec "cd .. && ./vendor/bin/robo fetch ./robo/sites-collection1.csv"
+
 Every time you want to re-install:
 
     ddev restart
