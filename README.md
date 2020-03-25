@@ -20,6 +20,13 @@ Every time you want to re-install:
 
     ddev restart
 
+To re-fetch subsites
+
+    ddev exec "cd .. && ./vendor/bin/robo fetch ./robo/sites-collection1.csv" && ddev restart
+
+To clean the working directory after a re-fetch
+
+    ddev exec "cd .. && ./vendor/bin/robo reset"
 
 Notice that in the end of the `ddev restart` we get a one time admin link to login, to two sites:
 
