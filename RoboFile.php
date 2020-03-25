@@ -29,7 +29,9 @@ class RoboFile extends \Robo\Tasks
     $finder
       ->directories()
       ->in('web/sites')
-      ->exclude('default');
+      ->exclude('default')
+      // Don't search sub-directories.
+      ->depth('== 0');
 
     if ($finder->hasResults()) {
       $task = $this
@@ -49,7 +51,9 @@ class RoboFile extends \Robo\Tasks
     $finder
       ->files()
       ->in('config')
-      ->exclude('sync');
+      ->exclude('sync')
+      // Don't search sub-directories.
+      ->depth('== 0');
 
     if ($finder->hasResults()) {
       $task = $this
